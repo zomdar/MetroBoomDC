@@ -2,7 +2,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 
 import { MetroRoutingModule } from "./metro-routing.module";
-import { MetroInfoComponent } from "./metro-info.component";
+import { MetroComponent } from "./metro.component";
 
 @NgModule({
     imports: [
@@ -10,10 +10,10 @@ import { MetroInfoComponent } from "./metro-info.component";
         MetroRoutingModule
     ],
     declarations: [
-        MetroInfoComponent
+        MetroComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class MetroInfoModule { }
+export class MetroModule { }

@@ -7,8 +7,6 @@ import { AppComponent } from "./app.component";
 
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 
-import { MetroInfoComponent } from "./metro/metro-info.component";
-
 
 @NgModule({
     bootstrap: [
@@ -21,8 +19,7 @@ import { MetroInfoComponent } from "./metro/metro-info.component";
         NativeScriptHttpClientModule
     ],
     declarations: [
-        AppComponent,
-        MetroInfoComponent
+        AppComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

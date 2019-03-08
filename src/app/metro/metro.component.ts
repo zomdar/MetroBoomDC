@@ -1,14 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { EventData } from "tns-core-modules/data/observable";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import * as app from "tns-core-modules/application";
 
 import { MetroService } from "./metro.service";
 
 @Component({
-    selector: "ns-metro-info",
+    selector: "metro",
     moduleId: module.id,
-    templateUrl: "./metro-info.component.html"
+    templateUrl: "./metro.component.html"
 })
-export class MetroInfoComponent implements OnInit {
+export class MetroComponent implements OnInit {
 
     public metroInfo;
 
@@ -34,5 +36,10 @@ export class MetroInfoComponent implements OnInit {
     // >> button-tap-event-code
     onTap(args: EventData) {
         this.extractData();
+    }
+
+    onDrawerButtonTap(): void {
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        sideDrawer.showDrawer();
     }
 }
