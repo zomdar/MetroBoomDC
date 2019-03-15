@@ -17,14 +17,34 @@
 
 <GridLayout class="page page-content">
     <ScrollView>
+        <!-- typeahad search -->
         <StackLayout class="list-group">
-            <StackLayout *ngFor="let metro of metroInfo" class="list-group-item">
-                <Label [text]="metro.Line"></Label>
-                <Label [text]="metro.DestinationName"></Label>
-                <Label [text]="metro.Min"></Label>
+            <StackLayout class="p-15">
+                    <StackLayout class="input-field">
+                        <Label text="Select a Station" class="label"></Label>
+                        <RadAutoCompleteTextView [items]="autocompleteMetroStations" suggestMode="Suggest" displayMode="Plain" (didAutoComplete)="searchData($event)">
+                            <SuggestionView tkAutoCompleteSuggestionView>
+                                <ng-template tkSuggestionItemTemplate let-item="item">
+                                    <GridLayout columns="auto, *">
+                                        <Label col="1" [text]="item.text" class="p-l-5"></Label>
+                                    </GridLayout>
+                                </ng-template>
+                            </SuggestionView>
+                        </RadAutoCompleteTextView>
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
             </StackLayout>
-            <Button class="btn btn-primary btn-active" id="button" text="Refresh" (tap)="onTap($event)"></Button>
+            <ActivityIndicator [busy]="processing" rowSpan="3"></ActivityIndicator>
+            <StackLayout *ngIf="metroExists">
+                <StackLayout *ngFor="let metro of metroInfo" class="list-group-item">
+                    <Label [text]="metro.Line"></Label>
+                    <Label [text]="metro.DestinationName"></Label>
+                    <Label [text]="metro.Min"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout *ngIf="!metroExists" class="list-group-item">
+                    <Label text="No Trains Available"></Label>
+            </StackLayout>
         </StackLayout>
     </ScrollView>
-
 </GridLayout>

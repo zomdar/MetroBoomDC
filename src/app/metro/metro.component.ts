@@ -21,12 +21,12 @@ export class MetroComponent implements OnInit {
     }
 
     extractData() {
-        this.MetroService.getData()
-            .subscribe((result) => {
-                this.onGetDataSuccess(result);
-            }, (error) => {
-                console.log(error);
-            });
+        // this.MetroService.getData()
+        //     .subscribe((result) => {
+        //         this.onGetDataSuccess(result);
+        //     }, (error) => {
+        //         console.log(error);
+        //     });
     }
 
     private onGetDataSuccess(res) {

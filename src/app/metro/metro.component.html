@@ -16,5 +16,21 @@
 </ActionBar>
 
 <GridLayout class="page page-content">
-    <Label class="page-placeholder" text="<!-- Page content goes here -->"></Label>
+    <ScrollView>
+        <StackLayout class="list-group">
+            <!-- <StackLayout class="form">
+                    <StackLayout class="input-field">
+                            <Label class="label" text="" textWrap="true"></Label>
+                            <TextField #searchTxt hint="Search" autocorrect="false" returnKeyType="done" (returnPress)="searchData(searchTxt.text)" class="input input-border"></TextField>
+                    </StackLayout>
+            </StackLayout>
+            <Button text="Search" (tap)="searchData(searchTxt.text)" class="btn btn-primary btn-active"></Button> -->
+            <StackLayout *ngFor="let metro of metroInfo" class="list-group-item">
+                <Label [text]="metro.Line"></Label>
+                <Label [text]="metro.DestinationName"></Label>
+                <Label [text]="metro.Min"></Label>
+            </StackLayout>
+            <!-- <Button class="btn btn-primary btn-active" id="button" text="Refresh" (tap)="onTap($event)"></Button> -->
+        </StackLayout>
+    </ScrollView>
 </GridLayout>

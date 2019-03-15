@@ -1,8 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
-import { EventData } from "tns-core-modules/data/observable";
-import { Button } from "tns-core-modules/ui/button";
+
+import { ObservableArray } from "tns-core-modules/data/observable-array";
+import { TokenModel } from "nativescript-ui-autocomplete";
+
+import { ActivatedRoute } from '@angular/router';
+import { TextField } from "tns-core-modules/ui/text-field";
 
 import { MetroService } from "../metro/metro.service";
 
@@ -14,11 +18,22 @@ import { MetroService } from "../metro/metro.service";
 export class HomeComponent implements OnInit {
 
     public metroInfo;
+    public metroStationR;
+    public searchTxt: string = "";
+    public processing = false;
+    public metroExists: boolean;
 
-    constructor(private MetroService: MetroService) { }
+    private autocompleteMetroStations: ObservableArray<TokenModel>;
+
+    constructor(private MetroService: MetroService, private route: ActivatedRoute) {
+    }
 
     ngOnInit() {
-        this.extractData();
+        this.metroStationR = this.route.snapshot.data.metro.Stations;
+        this.autocompleteMetroStations = new ObservableArray<TokenModel>();
+        this.metroStationR.forEach((metroStationInfo) => {
+            this.autocompleteMetroStations.push(new TokenModel(metroStationInfo.Name, undefined));
+        });
     }
 
     onDrawerButtonTap(): void {
@@ -26,22 +41,31 @@ export class HomeComponent implements OnInit {
         sideDrawer.showDrawer();
     }
 
-
-    extractData() {
-        this.MetroService.getData()
-            .subscribe((result) => {
-                this.onGetDataSuccess(result);
+    extractData(stationCode: string) {
+        this.MetroService.getData(stationCode)
+            .subscribe((res) => {
+                this.onGetDataSuccess(res);
             }, (error) => {
                 console.log(error);
             });
     }
 
     private onGetDataSuccess(res) {
+        this.metroExists = false;
+        if(res.Trains.length > 0) {
+            this.metroExists = true;
+        }
         this.metroInfo = res.Trains;
     }
 
-    // >> button-tap-event-code
-    onTap(args: EventData) {
-        this.extractData();
+    searchData(arg) {
+        this.processing = true;
+        this.metroStationR.forEach(station => {
+            if(arg.text === station.Name) {
+                this.processing = false;
+                this.extractData(station.Code);
+            }
+        })
     }
+
 }

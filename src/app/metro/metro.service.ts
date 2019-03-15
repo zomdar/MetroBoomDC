@@ -7,13 +7,18 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
     providedIn: "root"
 })
 export class MetroService {
-    private serverUrl = "https://api.wmata.com/StationPrediction.svc/json/GetPrediction/E03";
+    private serverUrl = "https://api.wmata.com/";
 
     constructor(private http: HttpClient) { }
 
-    getData() {
+    getData(train: string) {
         let headers = this.createRequestHeader();
-        return this.http.get(this.serverUrl, { headers: headers });
+        return this.http.get(this.serverUrl + 'StationPrediction.svc/json/GetPrediction/' + train, { headers: headers });
+    }
+
+    getTrainStationInfo() {
+        let headers = this.createRequestHeader();
+        return this.http.get(this.serverUrl + 'Rail.svc/json/jStations', { headers: headers });
     }
 
     private createRequestHeader() {
