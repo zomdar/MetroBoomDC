@@ -42,4 +42,6 @@ export class MetroComponent implements OnInit {
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.showDrawer();
     }
+
+    
 }

@@ -16,9 +16,10 @@
 </ActionBar>
 
 <GridLayout class="page page-content">
+    
     <ScrollView>
-        <!-- typeahad search -->
         <StackLayout class="list-group">
+            <!-- typeahad search -->
             <StackLayout class="p-15">
                     <StackLayout class="input-field">
                         <Label text="Select a Station" class="label"></Label>
@@ -34,17 +35,24 @@
                         <StackLayout class="hr-light"></StackLayout>
                     </StackLayout>
             </StackLayout>
+
             <ActivityIndicator [busy]="processing" rowSpan="3"></ActivityIndicator>
-            <StackLayout *ngIf="metroExists">
-                <StackLayout *ngFor="let metro of metroInfo" class="list-group-item">
-                    <Label [text]="metro.Line"></Label>
-                    <Label [text]="metro.DestinationName"></Label>
-                    <Label [text]="metro.Min"></Label>
+
+            <ScrollView *ngIf="metroExists" row="1">
+                <StackLayout>
+                    <StackLayout *ngFor="let metro of metroInfo" class="list-group-item m-15">
+                        <Label class="h3 m-5" [text]="metro.Line"></Label>
+                        <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                        <Label class="h3 m-5" [text]="metro.Min"></Label>
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
-            <StackLayout *ngIf="!metroExists" class="list-group-item">
+            </ScrollView>
+            <ScrollView *ngIf="!metroExists" row="1">
+                <GridLayout class="list-group-item m-15">
                     <Label text="No Trains Available"></Label>
-            </StackLayout>
+                </GridLayout>
+            </ScrollView>
         </StackLayout>
     </ScrollView>
 </GridLayout>
+
