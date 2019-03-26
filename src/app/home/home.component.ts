@@ -18,6 +18,7 @@ import { MetroService } from "../metro/metro.service";
 export class HomeComponent implements OnInit {
 
     public metroInfo;
+    public groupByNameMetroInfo;
     public metroStationR;
     public searchTxt: string = "";
     public processing = false;
@@ -56,6 +57,13 @@ export class HomeComponent implements OnInit {
             this.metroExists = true;
         }
         this.metroInfo = res.Trains;
+
+        var groupByName = {};
+        res.Trains.forEach(function (a) {
+            groupByName [a.Line] = groupByName [a.Line] || [];
+            groupByName [a.Line].push({ DestinationName: a.DestinationName, Min: a.Min });
+        });
+        this.groupByNameMetroInfo = groupByName;
     }
 
     searchData(arg) {

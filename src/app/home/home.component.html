@@ -16,43 +16,135 @@
 </ActionBar>
 
 <GridLayout class="page page-content">
-    
-    <ScrollView>
-        <StackLayout class="list-group">
-            <!-- typeahad search -->
-            <StackLayout class="p-15">
-                    <StackLayout class="input-field">
-                        <Label text="Select a Station" class="label"></Label>
-                        <RadAutoCompleteTextView [items]="autocompleteMetroStations" suggestMode="Suggest" displayMode="Plain" (didAutoComplete)="searchData($event)">
-                            <SuggestionView tkAutoCompleteSuggestionView>
-                                <ng-template tkSuggestionItemTemplate let-item="item">
-                                    <GridLayout columns="auto, *">
-                                        <Label col="1" [text]="item.text" class="p-l-5"></Label>
-                                    </GridLayout>
-                                </ng-template>
-                            </SuggestionView>
-                        </RadAutoCompleteTextView>
-                        <StackLayout class="hr-light"></StackLayout>
-                    </StackLayout>
-            </StackLayout>
 
-            <ActivityIndicator [busy]="processing" rowSpan="3"></ActivityIndicator>
+    <StackLayout class="list-group">
+        <!-- typeahad search -->
+        <StackLayout class="p-15">
+                <StackLayout class="input-field">
+                    <Label text="Select a Station" class="label"></Label>
+                    <RadAutoCompleteTextView [items]="autocompleteMetroStations" suggestMode="Suggest" displayMode="Plain" (didAutoComplete)="searchData($event)">
+                        <SuggestionView tkAutoCompleteSuggestionView>
+                            <ng-template tkSuggestionItemTemplate let-item="item">
+                                <GridLayout columns="auto, *">
+                                    <Label col="1" [text]="item.text" class="p-l-5"></Label>
+                                </GridLayout>
+                            </ng-template>
+                        </SuggestionView>
+                    </RadAutoCompleteTextView>
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+        </StackLayout>
 
-            <ScrollView *ngIf="metroExists" row="1">
-                <StackLayout>
-                    <StackLayout *ngFor="let metro of metroInfo" class="list-group-item m-15">
+        <ActivityIndicator [busy]="processing" rowSpan="3"></ActivityIndicator>
+
+        <!-- search results -->
+        <ScrollView class="page" *ngIf="metroExists" row="1">
+            <StackLayout>
+                <StackLayout *ngIf="groupByNameMetroInfo.GR">
+                    <Label text="Green" class="train-stop-label"></Label>
+                    <StackLayout *ngFor="let metro of groupByNameMetroInfo.GR" class="list-group-item m-15">
                         <Label class="h3 m-5" [text]="metro.Line"></Label>
                         <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
                         <Label class="h3 m-5" [text]="metro.Min"></Label>
                     </StackLayout>
                 </StackLayout>
-            </ScrollView>
-            <ScrollView *ngIf="!metroExists" row="1">
-                <GridLayout class="list-group-item m-15">
-                    <Label text="No Trains Available"></Label>
-                </GridLayout>
-            </ScrollView>
-        </StackLayout>
-    </ScrollView>
+                <StackLayout *ngIf="groupByNameMetroInfo.YL">
+                    <Label text="Yellow" class="train-stop-label"></Label>
+                    <StackLayout *ngFor="let metro of groupByNameMetroInfo.YL" class="list-group-item m-15">
+                        <Label class="h3 m-5" [text]="metro.Line"></Label>
+                        <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                        <Label class="h3 m-5" [text]="metro.Min"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout *ngIf="groupByNameMetroInfo.SV">
+                    <Label text="Silver" class="train-stop-label"></Label>
+                    <StackLayout *ngFor="let metro of groupByNameMetroInfo.SV" class="list-group-item m-15">
+                        <Label class="h3 m-5" [text]="metro.Line"></Label>
+                        <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                        <Label class="h3 m-5" [text]="metro.Min"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout *ngIf="groupByNameMetroInfo.BL">
+                    <Label text="Blue" class="train-stop-label"></Label>
+                    <StackLayout *ngFor="let metro of groupByNameMetroInfo.BL" class="list-group-item m-15">
+                        <Label class="h3 m-5" [text]="metro.Line"></Label>
+                        <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                        <Label class="h3 m-5" [text]="metro.Min"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout *ngIf="groupByNameMetroInfo.RD">
+                    <Label text="Red" class="train-stop-label"></Label>
+                    <StackLayout *ngFor="let metro of groupByNameMetroInfo.RD" class="list-group-item m-15">
+                        <Label class="h3 m-5" [text]="metro.Line"></Label>
+                        <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                        <Label class="h3 m-5" [text]="metro.Min"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout *ngIf="groupByNameMetroInfo.OR">
+                    <Label text="Orange" class="train-stop-label"></Label>
+                    <StackLayout *ngFor="let metro of groupByNameMetroInfo.OR" class="list-group-item m-15">
+                        <Label class="h3 m-5" [text]="metro.Line"></Label>
+                        <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                        <Label class="h3 m-5" [text]="metro.Min"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            <!-- <StackLayout *ngIf="groupByNameMetroInfo.GR">
+                <Label text="Green" class="train-stop-label"></Label>
+                <StackLayout *ngFor="let metro of groupByNameMetroInfo.GR" class="list-group-item m-15">
+                    <Label class="h3 m-5" [text]="metro.Line"></Label>
+                    <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                    <Label class="h3 m-5" [text]="metro.Min"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout *ngIf="groupByNameMetroInfo.YL">
+                <Label text="Yellow" class="train-stop-label"></Label>
+                <StackLayout *ngFor="let metro of groupByNameMetroInfo.YL" class="list-group-item m-15">
+                    <Label class="h3 m-5" [text]="metro.Line"></Label>
+                    <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                    <Label class="h3 m-5" [text]="metro.Min"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout *ngIf="groupByNameMetroInfo.SV">
+                <Label text="Silver" class="train-stop-label"></Label>
+                <StackLayout *ngFor="let metro of groupByNameMetroInfo.SV" class="list-group-item m-15">
+                    <Label class="h3 m-5" [text]="metro.Line"></Label>
+                    <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                    <Label class="h3 m-5" [text]="metro.Min"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout *ngIf="groupByNameMetroInfo.BL">
+                <Label text="Blue" class="train-stop-label"></Label>
+                <StackLayout *ngFor="let metro of groupByNameMetroInfo.BL" class="list-group-item m-15">
+                    <Label class="h3 m-5" [text]="metro.Line"></Label>
+                    <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                    <Label class="h3 m-5" [text]="metro.Min"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout *ngIf="groupByNameMetroInfo.RD">
+                <Label text="Red" class="train-stop-label"></Label>
+                <StackLayout *ngFor="let metro of groupByNameMetroInfo.RD" class="list-group-item m-15">
+                    <Label class="h3 m-5" [text]="metro.Line"></Label>
+                    <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                    <Label class="h3 m-5" [text]="metro.Min"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout *ngIf="groupByNameMetroInfo.OR">
+                <Label text="Orange" class="train-stop-label"></Label>
+                <StackLayout *ngFor="let metro of groupByNameMetroInfo.OR" class="list-group-item m-15">
+                    <Label class="h3 m-5" [text]="metro.Line"></Label>
+                    <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                    <Label class="h3 m-5" [text]="metro.Min"></Label>
+                </StackLayout>
+            </StackLayout> -->
+        </ScrollView>
+
+        <ScrollView *ngIf="!metroExists" row="1">
+            <GridLayout class="list-group-item m-15">
+                <Label text="No Trains Available"></Label>
+            </GridLayout>
+        </ScrollView>
+    </StackLayout>
+
 </GridLayout>
 
