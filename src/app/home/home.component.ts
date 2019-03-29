@@ -13,6 +13,7 @@ import { MetroService } from "../metro/metro.service";
 @Component({
     selector: "Home",
     moduleId: module.id,
+    styleUrls: ["./home.component.css"],
     templateUrl: "./home.component.html"
 })
 export class HomeComponent implements OnInit {
