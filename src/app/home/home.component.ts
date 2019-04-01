@@ -1,14 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
-
 import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { TokenModel } from "nativescript-ui-autocomplete";
-
 import { ActivatedRoute } from '@angular/router';
-import { TextField } from "tns-core-modules/ui/text-field";
 
 import { MetroService } from "../metro/metro.service";
+
+import { registerElement } from "nativescript-angular/element-registry";
+registerElement("PullToRefresh", () => require("nativescript-pulltorefresh").PullToRefresh);
 
 @Component({
     selector: "Home",
@@ -76,5 +76,12 @@ export class HomeComponent implements OnInit {
             }
         })
     }
+
+    refreshList(args) {
+        var pullRefresh = args.object;
+        setTimeout(function () {
+            pullRefresh.refreshing = false;
+        }, 1000);
+   }
 
 }
