@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
     public processing = false;
     public metroExists: boolean;
 
+    public metroStationCode: string = "";
+
     private autocompleteMetroStations: ObservableArray<TokenModel>;
 
     constructor(private MetroService: MetroService, private route: ActivatedRoute) {
@@ -71,6 +73,7 @@ export class HomeComponent implements OnInit {
         this.processing = true;
         this.metroStationR.forEach(station => {
             if(arg.text === station.Name) {
+                this.metroStationCode = station.Code;
                 this.processing = false;
                 this.extractData(station.Code);
             }
@@ -79,6 +82,7 @@ export class HomeComponent implements OnInit {
 
     refreshList(args) {
         var pullRefresh = args.object;
+        this.extractData(this.metroStationCode);
         setTimeout(function () {
             pullRefresh.refreshing = false;
         }, 1000);
