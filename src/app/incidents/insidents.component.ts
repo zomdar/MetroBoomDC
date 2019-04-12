@@ -3,11 +3,11 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
 
 @Component({
-    selector: "Settings",
+    selector: "Insidents",
     moduleId: module.id,
-    templateUrl: "./settings.component.html"
+    templateUrl: "./insidents.component.html"
 })
-export class SettingsComponent implements OnInit {
+export class InsidentsComponent implements OnInit {
 
     constructor() {
         // Use the component constructor to inject providers.

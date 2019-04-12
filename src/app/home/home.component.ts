@@ -5,7 +5,7 @@ import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { TokenModel } from "nativescript-ui-autocomplete";
 import { ActivatedRoute } from '@angular/router';
 
-import { MetroService } from "../metro/metro.service";
+import { MetroService } from "../metroService/metro.service";
 
 import { registerElement } from "nativescript-angular/element-registry";
 registerElement("PullToRefresh", () => require("nativescript-pulltorefresh").PullToRefresh);

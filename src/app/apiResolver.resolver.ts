@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Resolve } from '@angular/router';
-import { MetroService } from "./metro/metro.service";
+import { MetroService } from "./metroService/metro.service";
 
 
 @Injectable()
