@@ -7,9 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { MetroService } from "../metroService/metro.service";
 
-import { registerElement } from "nativescript-angular/element-registry";
-registerElement("PullToRefresh", () => require("nativescript-pulltorefresh").PullToRefresh);
-
 @Component({
     selector: "Home",
     moduleId: module.id,

@@ -4,17 +4,18 @@ import * as app from "tns-core-modules/application";
 
 import { MetroService } from "../metroService/metro.service";
 
-// pull to refresh components
-import { registerElement } from "nativescript-angular/element-registry";
-
 @Component({
     selector: "Incidents",
     moduleId: module.id,
+    styleUrls: ["./incidents.component.css"],
     templateUrl: "./incidents.component.html"
 })
 export class IncidentsComponent implements OnInit {
 
-    public incidentsData;
+    public incidentsData: Array<any>;
+    public incidentsExists: boolean;
+
+    public items: any[] = [{imageUrl: "https://via.placeholder.com/300"}];
 
     constructor(private MetroService: MetroService) {
         // Use the component constructor to inject providers.
@@ -22,6 +23,7 @@ export class IncidentsComponent implements OnInit {
 
     ngOnInit(): void {
         // Init your component properties here.
+        this.extractIncidentData();
     }
 
     onDrawerButtonTap(): void {
@@ -39,26 +41,18 @@ export class IncidentsComponent implements OnInit {
     }
 
     private onGetDataSuccess(res) {
-        // this.metroExists = false;
-        // if(res.Trains.length > 0) {
-        //     this.metroExists = true;
-        // }
-        // this.metroInfo = res.Trains;
-
-        // var groupByName = {};
-        // res.Trains.forEach(function (a) {
-        //     groupByName [a.Line] = groupByName [a.Line] || [];
-        //     groupByName [a.Line].push({ DestinationName: a.DestinationName, Min: a.Min });
-        // });
-        // this.groupByNameMetroInfo = groupByName;
-        console.log(res);
+        this.incidentsExists = false;
+        if(res.Incidents.length > 0) {
+            this.incidentsExists = true;
+        }
+        this.incidentsData = res.Incidents;
     }
 
-    refreshList(args) {
+    refreshIncidentsList(args) {
         var pullRefresh = args.object;
-        // this.extractData(this.metroStationCode);
-        // setTimeout(function () {
-        //     pullRefresh.refreshing = false;
-        // }, 1000);
+        this.extractIncidentData();
+        setTimeout(function () {
+            pullRefresh.refreshing = false;
+        }, 1000);
     }
 }

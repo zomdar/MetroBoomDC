@@ -15,28 +15,27 @@
     <Label class="action-bar-title" text="Incidents"></Label>
 </ActionBar>
 
-<GridLayout class="page page-content">
+<GridLayout class="page page-content" rows="auto, *">
 
-    <StackLayout>
-        <PullToRefresh (refresh)="refreshList($event)">
-            <ScrollView class="page" row="1">
-                <StackLayout>
-                        <Button class="btn btn-primary btn-active" id="button" text="Tap me!" (tap)="extractIncidentData($event)"></Button>
+    <StackLayout class="list-group">
+        <StackLayout>
+            <Label class="h3 m-5" text=""></Label>
+        </StackLayout>
 
-                    <!-- <StackLayout *ngIf="groupByNameMetroInfo.GR">
-                        <StackLayout [items]="groupByNameMetroInfo.GR">
-                            <Label text="Green Line" class="train-label m-15"></Label>
-                            <StackLayout *ngFor="let metro of groupByNameMetroInfo.GR" class="list-group-item m-15">
-                                <Label class="h3 m-5" [text]="metro.Line"></Label>
-                                <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
-                                <Label class="h3 m-5" [text]="metro.Min"></Label>
-                            </StackLayout>
+        <StackLayout *ngIf="incidentsExists">
+            <PullToRefresh (refresh)="refreshIncidentsList($event)">
+                <ScrollView class="page" row="1">
+                    <StackLayout [items]="incidentsData">
+                        <StackLayout *ngFor="let incident of incidentsData" class="list-group-item m-15">
+                            <Label class="h3 m-5 incident-label" [text]="incident.IncidentType"></Label>
+                            <Label class="h3 m-5" [text]="incident.Description" textWrap="true"></Label>
+                            <Label class="h3 m-5" [text]="incident.LinesAffected"></Label>
                         </StackLayout>
-                    </StackLayout> -->
-                </StackLayout>
-            </ScrollView>
-        </PullToRefresh>
-    </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </PullToRefresh>
+        </StackLayout>
 
+    </StackLayout>
 
 </GridLayout>
