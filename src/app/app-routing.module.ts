@@ -8,7 +8,7 @@ const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
     { path: "home", loadChildren: "~/app/home/home.module#HomeModule", resolve: { metro: ApiResolver } },
     // { path: "metro", loadChildren: "~/app/metro/metro.module#MetroModule" },
-    { path: "insidents", loadChildren: "~/app/insidents/insidents.module#InsidentsModule" }
+    { path: "incidents", loadChildren: "~/app/incidents/incidents.module#IncidentsModule" }
 ];
 
 @NgModule({

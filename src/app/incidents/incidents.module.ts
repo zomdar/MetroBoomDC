@@ -1,19 +1,19 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 
-import { InsidentsRoutingModule } from "./insidents-routing.module";
-import { InsidentsComponent } from "./insidents.component";
+import { IncidentsRoutingModule } from "./incidents-routing.module";
+import { IncidentsComponent } from "./incidents.component";
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
-        InsidentsRoutingModule
+        IncidentsRoutingModule
     ],
     declarations: [
-        InsidentsComponent
+        IncidentsComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class insidentsModule { }
+export class IncidentsModule { }
