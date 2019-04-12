@@ -12,10 +12,31 @@
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Settings"></Label>
+    <Label class="action-bar-title" text="Incidents"></Label>
 </ActionBar>
 
 <GridLayout class="page page-content">
-    <Label class="page-icon fa" text="&#xf013;"></Label>
-    <Label class="page-placeholder" text="<!-- Page content goes here -->"></Label>
+
+    <StackLayout>
+        <PullToRefresh (refresh)="refreshList($event)">
+            <ScrollView class="page" row="1">
+                <StackLayout>
+                        <Button class="btn btn-primary btn-active" id="button" text="Tap me!" (tap)="extractIncidentData($event)"></Button>
+
+                    <!-- <StackLayout *ngIf="groupByNameMetroInfo.GR">
+                        <StackLayout [items]="groupByNameMetroInfo.GR">
+                            <Label text="Green Line" class="train-label m-15"></Label>
+                            <StackLayout *ngFor="let metro of groupByNameMetroInfo.GR" class="list-group-item m-15">
+                                <Label class="h3 m-5" [text]="metro.Line"></Label>
+                                <Label class="h3 m-5" [text]="metro.DestinationName"></Label>
+                                <Label class="h3 m-5" [text]="metro.Min"></Label>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout> -->
+                </StackLayout>
+            </ScrollView>
+        </PullToRefresh>
+    </StackLayout>
+
+
 </GridLayout>

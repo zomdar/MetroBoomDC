@@ -86,6 +86,6 @@ export class HomeComponent implements OnInit {
         setTimeout(function () {
             pullRefresh.refreshing = false;
         }, 1000);
-   }
+    }
 
 }

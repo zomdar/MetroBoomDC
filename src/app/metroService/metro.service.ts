@@ -21,6 +21,11 @@ export class MetroService {
         return this.http.get(this.serverUrl + 'Rail.svc/json/jStations', { headers: headers });
     }
 
+    getTrainIncidents() {
+        let headers = this.createRequestHeader();
+        return this.http.get(this.serverUrl + 'Incidents.svc/json/Incidents', { headers: headers });
+    }
+
     private createRequestHeader() {
         // set headers here e.g.
         let headers = new HttpHeaders({
