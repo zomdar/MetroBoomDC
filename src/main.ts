@@ -5,6 +5,8 @@ import { platformNativeScriptDynamic } from "nativescript-angular/platform";
 import { registerElement } from "nativescript-angular/element-registry";
 registerElement("PullToRefresh", () => require("nativescript-pulltorefresh").PullToRefresh);
 
+registerElement('ImageZoom', () => require('nativescript-image-zoom').ImageZoom);
+
 import { AppModule } from "./app/app.module";
 
 platformNativeScriptDynamic().bootstrapModule(AppModule);
