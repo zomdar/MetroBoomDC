@@ -5,6 +5,9 @@ import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { TokenModel } from "nativescript-ui-autocomplete";
 import { ActivatedRoute } from '@angular/router';
 
+import { map, distinct } from 'rxjs/operators';
+import { Observable } from "rxjs";
+
 import { MetroService } from "../metroService/metro.service";
 
 @Component({
@@ -23,18 +26,31 @@ export class HomeComponent implements OnInit {
     public metroExists: boolean;
 
     public metroStationCode: string = "";
+    metroStationNameArray;
 
     private autocompleteMetroStations: ObservableArray<TokenModel>;
 
-    constructor(private MetroService: MetroService, private route: ActivatedRoute) {
+    constructor(private metroService: MetroService, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.metroStationR = this.route.snapshot.data.metro.Stations;
         this.autocompleteMetroStations = new ObservableArray<TokenModel>();
-        this.metroStationR.forEach((metroStationInfo) => {
-            this.autocompleteMetroStations.push(new TokenModel(metroStationInfo.Name, undefined));
-        });
+        this.metroStationR = this.metroService.getTrainStationInfo();
+
+        this.metroStationNameArray = this.metroStationR
+                                        .pipe(
+                                            map((res) => {
+                                                return res.Stations;
+                                            })
+                                        )
+                                        .subscribe((res) => {
+                                            res.forEach((metroStationInfo) => {
+                                                this.autocompleteMetroStations.push(new TokenModel(metroStationInfo.Name, undefined));
+                                            });
+                                        },
+                                        (error) => {
+                                            console.log(error);
+                                        });
     }
 
     onDrawerButtonTap(): void {
@@ -43,7 +59,7 @@ export class HomeComponent implements OnInit {
     }
 
     extractData(stationCode: string) {
-        this.MetroService.getData(stationCode)
+        this.metroService.getData(stationCode)
             .subscribe((res) => {
                 this.onGetDataSuccess(res);
             }, (error) => {
@@ -68,13 +84,17 @@ export class HomeComponent implements OnInit {
 
     searchData(arg) {
         this.processing = true;
-        this.metroStationR.forEach(station => {
-            if(arg.text === station.Name) {
-                this.metroStationCode = station.Code;
-                this.processing = false;
-                this.extractData(station.Code);
-            }
-        })
+        this.metroStationR.subscribe((res) => {
+            res.Stations .forEach(station => {
+                if(arg.text === station.Name) {
+                    this.metroStationCode = station.Code;
+                    this.processing = false;
+                    this.extractData(station.Code);
+                }
+            })
+        }, (error) => {
+            console.log(error);
+        });
     }
 
     refreshList(args) {

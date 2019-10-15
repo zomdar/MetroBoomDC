@@ -36,3 +36,4 @@ typings/
 
 # backup
 .migration_backup/*
+.vscode/launch.json

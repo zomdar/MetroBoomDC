@@ -35,6 +35,11 @@
                 </ScrollView>
             </PullToRefresh>
         </StackLayout>
+        <StackLayout *ngIf="!incidentsExists">
+            <GridLayout class="list-group-item m-15">
+                <Label text="No Current Incidents"></Label>
+            </GridLayout>
+        </StackLayout>
 
     </StackLayout>
 

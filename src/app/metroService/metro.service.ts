@@ -1,6 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
+import { Observable } from "rxjs";
+import { map } from 'rxjs/operators';
+
 // import { Item } from "./item";
 
 @Injectable({
@@ -11,19 +14,34 @@ export class MetroService {
 
     constructor(private http: HttpClient) { }
 
-    getData(train: string) {
+    getData(train: string): Observable<any>  {
         let headers = this.createRequestHeader();
-        return this.http.get(this.serverUrl + 'StationPrediction.svc/json/GetPrediction/' + train, { headers: headers });
+        return this.http.get(`${this.serverUrl}StationPrediction.svc/json/GetPrediction/${train}`, { headers: headers })
+                        .pipe(
+                            map(resp => {
+                                return resp;
+                            })
+                        );
     }
 
     getTrainStationInfo() {
         let headers = this.createRequestHeader();
-        return this.http.get(this.serverUrl + 'Rail.svc/json/jStations', { headers: headers });
+        return this.http.get(`${this.serverUrl}Rail.svc/json/jStations`, { headers: headers })
+                        .pipe(
+                            map(resp => {
+                                return resp;
+                            })
+                        );
     }
 
-    getTrainIncidents() {
+    getTrainIncidents(): Observable<any> {
         let headers = this.createRequestHeader();
-        return this.http.get(this.serverUrl + 'Incidents.svc/json/Incidents', { headers: headers });
+        return this.http.get(`${this.serverUrl}Incidents.svc/json/Incidents`, { headers: headers })
+                        .pipe(
+                            map(resp => {
+                                return resp;
+                            })
+                        );
     }
 
     private createRequestHeader() {

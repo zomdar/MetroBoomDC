@@ -67,19 +67,6 @@
             "appRoot": "${workspaceRoot}",
             "sourceMaps": true,
             "watch": false
-        },
-        {
-            "name": "Launch on iOS Demo",
-            "type": "nativescript",
-            "request": "launch",
-            "platform": "android",
-            "appRoot": "${workspaceRoot}",
-            "sourceMaps": true,
-            "watch": true,
-            "sourceMapPathOverrides": {
-                "webpack:///*": "${workspaceRoot}/app/*"
-            },
-            "tnsArgs":["ios--bundle"]
         }
     ]
 }

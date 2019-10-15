@@ -6,7 +6,7 @@ import { ApiResolver } from "./apiResolver.resolver";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
-    { path: "home", loadChildren: "~/app/home/home.module#HomeModule", resolve: { metro: ApiResolver } },
+    { path: "home", loadChildren: "~/app/home/home.module#HomeModule" },
     // { path: "metro", loadChildren: "~/app/metro/metro.module#MetroModule" },
     { path: "incidents", loadChildren: "~/app/incidents/incidents.module#IncidentsModule" }
 ];
