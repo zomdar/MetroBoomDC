@@ -10,6 +10,14 @@ import { Observable } from "rxjs";
 
 import { MetroService } from "../metroService/metro.service";
 
+interface Metro {
+    Stations: Array<[]>;
+}
+
+interface Stations {
+    Name: string;
+}
+
 @Component({
     selector: "Home",
     moduleId: module.id,
@@ -26,6 +34,7 @@ export class HomeComponent implements OnInit {
     public metroExists: boolean;
 
     public metroStationCode: string = "";
+    newMetroStationNameArray
     metroStationNameArray;
 
     private autocompleteMetroStations: ObservableArray<TokenModel>;
@@ -38,13 +47,15 @@ export class HomeComponent implements OnInit {
         this.metroStationR = this.metroService.getTrainStationInfo();
 
         this.metroStationNameArray = this.metroStationR
-                                        .pipe(
-                                            map((res) => {
-                                                return res.Stations;
-                                            })
-                                        )
                                         .subscribe((res) => {
-                                            res.forEach((metroStationInfo) => {
+                                            this.newMetroStationNameArray = []
+                                            res.Stations.forEach((item, index) => {
+                                                if (this.newMetroStationNameArray.findIndex(i => i.Name == item.Name) === -1) {
+                                                    this.newMetroStationNameArray.push(item)
+                                                }
+
+                                            });
+                                            this.newMetroStationNameArray.forEach((metroStationInfo) => {
                                                 this.autocompleteMetroStations.push(new TokenModel(metroStationInfo.Name, undefined));
                                             });
                                         },
